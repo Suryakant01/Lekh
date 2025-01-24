@@ -7,8 +7,6 @@ const Input = forwardRef(
         className = ' ',
         placeholder = "Enter ",
         ...props
-
-
     }, ref) {
         const id = useId();
 
