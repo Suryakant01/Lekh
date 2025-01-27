@@ -54,7 +54,7 @@ class DBService {
         }
     }
 
-    updatePost = async ({ slug, title, content, status, featuredImg }) => {
+    updatePost = async (slug, { title, content, status, featuredImg }) => {
         try {
             await this.databases.updateDocument(conf.appWriteDatabaseID, conf.appWriteCollectionID, slug,
                 {
