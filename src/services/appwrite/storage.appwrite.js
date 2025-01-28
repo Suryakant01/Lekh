@@ -6,16 +6,20 @@ class StorageService {
     storage;
 
     constructor() {
-        this.client(conf.appWriteURL,
-            conf.appWriteProjectID,
-        )
+        this.client
+            .setEndpoint(conf.appWriteURL)
+            .setProject(conf.appWriteProjectID)
+        
         this.storage = new Storage(this.client)
     }
 
     uploadFile = async (file) => {
         try {
-            await this.storage.createFile(conf.appWriteStorageID, ID.unique(), file)
-            return true;
+            return await this.storage.createFile(
+                conf.appWriteStorageID,
+                ID.unique(),
+                file
+            )            
         } catch (error) {
             console.log("AppWrite Error :: upload file Storage Error", error);
             return false

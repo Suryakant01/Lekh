@@ -1,28 +1,24 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { authService } from "../../services/appwrite/auth.appwrite"
+import { useForm } from "react-hook-form";
+import authService from '../../services/appwrite/auth.appwrite';
 import { useDispatch } from 'react-redux';
-import { login } from "../../redux/slices/authSlice";
+import { login } from '../../redux/slices/authSlice';
 import Input from '../Input/Input';
 import Button from "../Button/Button"
 
 const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [register, handleSubmit] = useForm();
+    const { register, handleSubmit } = useForm();
     const [error, setError] = useState();
-
-
 
     const signin = async (data) => {
         setError('')
-
         try {
-            const session = await authService.createAccount(data)
-
+            const session = await authService.login(data)
             if (session) {
-                const userData = authService.getUser();
+                const userData = await authService.getUser();
                 if (userData) {
                     dispatch(login(userData))
                     navigate('/')

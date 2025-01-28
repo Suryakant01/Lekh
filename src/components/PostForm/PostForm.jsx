@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { Button } from "../Button/Button"
+import Button from '../Button/Button'
 import Input from "../Input/Input"
 import Select from "../Select/Select"
 import RTE from "../RTE/RTE"
@@ -12,10 +12,10 @@ import storageService from '../../services/appwrite/storage.appwrite'
 
 const PostForm = ({ post }) => {
 
-    const [register, handleSubmit, watch, setValue, control, getValues] = useForm({
+    const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
         defaultValues: {
             title: post?.title || '',
-            slug: post?.slug || '',
+            slug: post?.$id || '',
             content: post?.content || '',
             status: post?.status || 'active',
 
@@ -29,26 +29,31 @@ const PostForm = ({ post }) => {
     const submit = async (data) => {
 
         if (post) {
+            
             const file = data.image[0] ? await storageService.uploadFile(data.image[0]) : null
 
-            if (file) storageService.deleteFile(post.$id);
+            if (file) storageService.deleteFile(post.featuredImg);
 
             const dbUpdatePost = await dbService.updatePost(post.$id, {
                 ...data,
+                featuredImg: file ? file.$id : undefined,
             })
 
             if (dbUpdatePost) {
                 navigate(`/post/${dbUpdatePost.$id}`)
             }
         } else {
-            const file = data.image[0] ? await storageService.uploadFile(data.image[0]) : null
+
+            const file = await storageService.uploadFile(data.image[0])
 
             if (file) {
                 const fileId = file.$id;
                 data.featuredImg = fileId;
+                console.log(("userData", userData));
+            
                 const dbCreatePost = await dbService.createPost({
                     ...data,
-                    userId: userData.$id,
+                    userID: userData?.$id,
                 })
 
                 if (dbCreatePost) {
@@ -118,7 +123,7 @@ const PostForm = ({ post }) => {
                 </div>
             )}
             <Select
-                options={["active", "inactive"]}
+                options={["active " , " inactive"]}
                 label="Status"
                 className="mb-4"
                 {...register("status", { required: true })}

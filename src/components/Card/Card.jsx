@@ -1,4 +1,4 @@
-import { storageService } from '../../services/appwrite/storage.appwrite'
+import storageService from '../../services/appwrite/storage.appwrite'
 import { Link } from 'react-router-dom'
 
 

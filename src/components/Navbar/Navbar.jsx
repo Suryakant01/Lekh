@@ -10,7 +10,6 @@ const Navbar = () => {
 
     const navItems = [
         {
-
             name: 'Home',
             slug: "/",
             active: true

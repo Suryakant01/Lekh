@@ -3,12 +3,12 @@ import dbService from '../services/appwrite/db.appwrite'
 import Card from "../components/Card/Card"
 
 const Home = () => {
-  const [posts, setPosts] = useState()
+  const [posts, setPosts] = useState([])
 
   useEffect(() => {
     dbService.getAllPosts().then((posts) => {
-      console.log("Home page posts", posts);
-      console.log("Home page posts.document", posts.documents);
+      // console.log("Home page posts", posts);
+      // console.log("Home page posts.document", posts.documents);
 
       if (posts) {
         setPosts(posts.documents)

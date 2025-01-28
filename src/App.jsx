@@ -6,6 +6,7 @@ import { login, logout } from './redux/slices/authSlice'
 import { useEffect, useState } from 'react'
 import Navbar from './components/Navbar/Navbar'
 import Footer from './components/Footer/Footer'
+import { Outlet } from 'react-router-dom'
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+  
     authService.getUser()
       .then((userData) => {
         if (userData) {
@@ -23,7 +25,7 @@ function App() {
       })
       .finally(() => setLoading(false))
 
-  }, [])
+  }, [dispatch])
 
 
   return (
@@ -31,8 +33,10 @@ function App() {
       <div className='min-h-screen flex flex-wrap content-between bg-gray-400'>
         <div className='w-full block'>
           <Navbar />
-          <h1 className='bg-red-600 text-white'> LEKH</h1>
-          <Footer /> 
+          <main>
+            <Outlet />
+          </main>
+          <Footer />
         </div>
       </div>
     ) : (<h1>loading....</h1>)

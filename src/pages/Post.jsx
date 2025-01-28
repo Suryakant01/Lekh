@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import dbService from "../services/appwrite/db.appwrite"
 import storageService from "../services/appwrite/auth.appwrite"
-import { parse } from "html-react-parser"
+import parse from "html-react-parser"
 import Button from "../components/Button/Button"
 
 const Post = () => {
@@ -26,7 +26,7 @@ const Post = () => {
                 }
             })
         }
-    }, [post, slug])
+    }, [post, slug, navigate])
 
     const deletePost = async () => {
         await dbService.deletePost(post.$id).then((status) => {

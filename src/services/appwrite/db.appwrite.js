@@ -1,5 +1,5 @@
 import { Client, Databases, Query, } from 'appwrite';
-import conf from '../conf/conf';
+import conf from '../../conf/conf';
 
 class DBService {
     client = new Client();
