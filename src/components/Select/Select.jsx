@@ -11,7 +11,7 @@ const Select = ({
 
   return (
     <div className='w-full'>
-      {label && <label htmlFor={id}></label>}
+      {label && <label htmlFor={id} className=''></label>}
 
       <select
         id={id}
@@ -21,7 +21,7 @@ const Select = ({
         {
           options?.map((option) => (
             <option key={option} value={option}>
-              {options}
+              {option}
             </option>            
           ))
         }
