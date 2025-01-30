@@ -7,17 +7,16 @@ const Home = () => {
 
   useEffect(() => {
     dbService.getAllPosts().then((posts) => {
-      // console.log("Home page posts", posts);
-      // console.log("Home page posts.document", posts.documents);
-
       if (posts) {
+        console.log("posts", posts.documents);
+        
         setPosts(posts.documents)
       }
     })
   }, [])
 
 
-  if (posts === 0) {
+  if (!posts || posts.length === 0) {
     return (
       <div className="w-full py-8 mt-4 text-center">
         <div className="flex flex-wrap">

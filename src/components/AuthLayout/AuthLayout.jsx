@@ -10,19 +10,15 @@ const AuthLayout = ({ children, authentication = true }) => {
 
   useEffect(() => {
     if (authentication && status !== authentication) {
-      navigate('/')
-    } else if (!authentication && status !== authentication) (
       navigate('/login')
+    } else if (!authentication && status !== authentication) (
+      navigate('/')
     )
     setLoader(false)
 
   }, [status, authentication, navigate])
 
-
-  return (
-    loader ? (<h1> loading....</h1>) : (<>{children}</>)
-
-  )
+  return loader ? (<h1> loading....</h1>) : (<>{children}</>)
 
 }
 

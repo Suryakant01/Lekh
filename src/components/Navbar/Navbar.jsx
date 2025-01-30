@@ -2,6 +2,7 @@
 import { useSelector } from 'react-redux'
 import LogoutBtn from './LogoutBtn'
 import { Link, useNavigate } from 'react-router-dom'
+import logo from '../../assets/Lekh-black.png'
 
 const Navbar = () => {
 
@@ -42,9 +43,11 @@ const Navbar = () => {
             <nav className='flex'>
                 <Link
                     to={'/'}>
-                    <div>
-                        Lekh
-                    </div>
+                    <img
+                        className='w-10 h-10'
+                        src={logo}
+                        alt='logo'
+                    />
                 </Link>
 
                 <ul className='flex ml-auto'>
@@ -62,10 +65,10 @@ const Navbar = () => {
                         )}
                     {
                         authStatus && (
-                        <li>
-                            <LogoutBtn />
-                        </li>
-                    )}
+                            <li>
+                                <LogoutBtn />
+                            </li>
+                        )}
                 </ul>
             </nav>
         </header>

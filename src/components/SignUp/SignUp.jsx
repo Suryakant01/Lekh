@@ -6,6 +6,7 @@ import Input from "../Input/Input";
 import { useDispatch } from "react-redux";
 import authService from "../../services/appwrite/auth.appwrite";
 import { login } from "../../redux/slices/authSlice";
+import logo from "../../assets/Lekh-black.png";
 
 const SignUp = () => {
   const dispatch = useDispatch();
@@ -20,10 +21,12 @@ const SignUp = () => {
       return;
     }
     try {
-      const session = await authService.createAccount(data);
-      if (session) {
+      const newUser = await authService.createAccount(data);
+      if (newUser) {
         const userData = await authService.getUser();
         if (userData) {
+          console.log(("userData in signup comp", userData));
+
           dispatch(login(userData));
         }
         navigate("/");
@@ -32,7 +35,7 @@ const SignUp = () => {
       console.error("AppWrite Error:", error);
       setError(error?.message || "Something went wrong. Please try again.");
     }
-    
+
   };
 
   return (
@@ -40,7 +43,11 @@ const SignUp = () => {
       <div className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}>
         <div className="mb-2 flex justify-center">
           <span className="inline-block w-full max-w-[100px]">
-            <h1> Lekh </h1>
+            <img
+              className='w-10 h-10'
+              src={logo}
+              alt='logo'
+            />
           </span>
         </div>
         <h2 className="text-center text-2xl font-bold leading-tight">Sign up to create account</h2>
@@ -57,7 +64,9 @@ const SignUp = () => {
             <Input
               label="Full Name: "
               placeholder="Enter your full name"
-              {...register("name", { required: true })}
+              {...register("name", {
+                required: true
+              })}
             />
             <Input
               label="Email: "

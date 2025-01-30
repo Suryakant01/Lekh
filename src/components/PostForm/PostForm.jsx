@@ -10,7 +10,7 @@ import dbService from "../../services/appwrite/db.appwrite"
 import storageService from '../../services/appwrite/storage.appwrite'
 
 
-const PostForm = ({ post }) => {
+const PostForm = ({ post }) => { 
 
     const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
         defaultValues: {
@@ -49,11 +49,10 @@ const PostForm = ({ post }) => {
             if (file) {
                 const fileId = file.$id;
                 data.featuredImg = fileId;
-                console.log(("userData", userData));
-            
+                console.log(("userData", userData?.$id));
                 const dbCreatePost = await dbService.createPost({
                     ...data,
-                    userID: userData?.$id,
+                    userId: userData?.$id || '',
                 })
 
                 if (dbCreatePost) {
@@ -123,7 +122,7 @@ const PostForm = ({ post }) => {
                 </div>
             )}
             <Select
-                options={["active " , " inactive"]}
+                options={["active" , "inactive"]}
                 label="Status"
                 className="mb-4"
                 {...register("status", { required: true })}

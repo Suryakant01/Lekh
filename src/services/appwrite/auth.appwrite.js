@@ -17,9 +17,10 @@ class AuthService {
         try {
             const userAccount = await this.account.create(ID.unique(), email, password, name);
             if (userAccount) {
-                return await this.login({ email, password });
+                return this.login({ email, password });
+            } else {
+                return userAccount;
             }
-            return userAccount;
         } catch (error) {
             console.error("AppWrite Error :: SignUp Auth Error", error);
             throw error; // Propagate the error
@@ -46,6 +47,7 @@ class AuthService {
                 console.error("AppWrite Error :: getting user Auth Error", error);
             }
         }
+        return null;
     }
     
 

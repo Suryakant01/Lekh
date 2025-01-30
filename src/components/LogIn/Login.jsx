@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { login } from '../../redux/slices/authSlice';
 import Input from '../Input/Input';
 import Button from "../Button/Button"
+import logo from '../../assets/Lekh-black.png'
 
 const Login = () => {
     const navigate = useNavigate();
@@ -20,9 +21,10 @@ const Login = () => {
             if (session) {
                 const userData = await authService.getUser();
                 if (userData) {
+                    console.log("userData in login comp", userData)
                     dispatch(login(userData))
-                    navigate('/')
                 }
+                navigate('/')
             }
         } catch (error) {
             setError(error.message)
@@ -36,7 +38,11 @@ const Login = () => {
             <div className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}>
                 <div className="mb-2 flex justify-center">
                     <span className="inline-block w-full max-w-[100px]">
-                        <h1> Lekh </h1>
+                        <img
+                            className='w-10 h-10'
+                            src={logo}
+                            alt='logo'
+                        />
                     </span>
                 </div>
                 <h2 className="text-center text-2xl font-bold leading-tight">Sign in to your account</h2>

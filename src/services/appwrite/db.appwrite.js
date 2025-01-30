@@ -13,16 +13,18 @@ class DBService {
         this.databases = new Databases(this.client)
     }
 
-    createPost = async ({ slug, title, content, status, userID, featuredImg }) => {
+    createPost = async ({ slug, title, content, status, userId, featuredImg }) => {
         try {
-            await this.databases.createDocument(conf.appWriteDatabaseID, conf.appWriteCollectionID, slug,
+            await this.databases.createDocument(
+                conf.appWriteDatabaseID,
+                conf.appWriteCollectionID,
+                slug,
                 {
                     title,
                     content,
                     status,
-                    userID,
+                    userId,
                     featuredImg,
-
                 }
             )
         } catch (error) {
@@ -33,8 +35,7 @@ class DBService {
 
     getPost = async (slug) => {
         try {
-            await this.databases.getDocument(conf.appWriteDatabaseID, conf.appWriteCollectionID, slug)
-            return true
+            return await this.databases.getDocument(conf.appWriteDatabaseID, conf.appWriteCollectionID, slug)
         } catch (error) {
             console.log("AppWrite Error :: get post DB Error", error);
             return false;
@@ -44,11 +45,12 @@ class DBService {
 
     getAllPosts = async () => {
         try {
-            await this.databases.listDocuments(conf.appWriteDatabaseID, conf.appWriteCollectionID, 
+            return await this.databases.listDocuments(conf.appWriteDatabaseID, conf.appWriteCollectionID, 
                 [
                     Query.equal('status', 'active')
                 ]
             )
+            
         } catch (error) {
             console.log("AppWrite Error :: delete post DB Error", error);
         }

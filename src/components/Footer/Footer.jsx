@@ -1,6 +1,6 @@
 
 import { Link } from 'react-router-dom'
-
+import logo from '../../assets/Lekh-black.png'
 
 function Footer() {
     return (
@@ -10,7 +10,11 @@ function Footer() {
                     <div className="w-full p-6 md:w-1/2 lg:w-5/12">
                         <div className="flex h-full flex-col justify-between">
                             <div className="mb-4 inline-flex items-center">
-                                <h3>Lekh</h3>
+                                <img
+                                    className='w-10 h-10'
+                                    src={logo}
+                                    alt='logo'
+                                />
                             </div>
                             <div>
                                 <p className="text-sm text-gray-600">

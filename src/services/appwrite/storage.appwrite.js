@@ -36,9 +36,9 @@ class StorageService {
         }
     }
 
-    getFilePreview = async(fileId) => {
+    getFilePreview = (fileId) => {
         try {
-            await this.storage.getFilePreview(conf.appWriteStorageID, fileId)
+            return  this.storage.getFilePreview(conf.appWriteStorageID, fileId)
         } catch (error) {
             console.log("AppWrite Error :: preview file Storage Error", error);
         }

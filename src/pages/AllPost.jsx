@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import Card from "../components/Card/Card"
 import dbService from '../services/appwrite/db.appwrite'
 
@@ -6,8 +6,10 @@ const AllPost = () => {
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        dbService.getAllPosts([]).then((posts) => {
+        dbService.getAllPosts().then((posts) => {
             if (posts) {
+                console.log("posts", posts.documents);
+                
                 setPosts(posts.documents)
             }
         })

@@ -1,18 +1,17 @@
 import {useId, forwardRef} from 'react'
 
 const Select = ({
+  options,
   label,
-  options = [],
-  className = ' ',
+  className = '',
   ...props
 }, ref) => {
-
 
   const id = useId();
 
   return (
     <div className='w-full'>
-      {label && <label htmlFor={id}>{label}</label>}
+      {label && <label htmlFor={id}></label>}
 
       <select
         id={id}
@@ -23,8 +22,7 @@ const Select = ({
           options?.map((option) => (
             <option key={option} value={option}>
               {options}
-            </option>
-            
+            </option>            
           ))
         }
       </select>
